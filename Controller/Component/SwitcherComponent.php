@@ -12,8 +12,7 @@ class SwitcherComponent extends Component {
 			return array();
 		}
 		$Folder = new Folder($path);
-		$contents = $Folder->read();
-		$files = $contents[1];
+		$files = $Folder->find('.*\.ctp', true);
 		array_walk($files, function($val, $key) use (&$files) {
 			list($layout, $ext) = explode('.', $val);
 			$files[$key] = $layout;
