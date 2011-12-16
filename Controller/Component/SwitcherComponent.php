@@ -41,10 +41,10 @@ class SwitcherComponent extends Component {
 
 	public function startup(Controller $controller) {
 		$key = 'Switcher.layouts';
-		if ($layouts = Cache::read($key, 'default') === false) {
+		if (($layouts = Cache::read($key, 'switcher_default')) === false) {
 			$layouts = $this->getThemeLayouts();
 			if (!empty($layouts)) {
-				Cache::write($key, $layouts, 'default');
+				Cache::write($key, $layouts, 'switcher_default');
 			}
 		}
 		Configure::write('Switcher.layouts', $layouts);
