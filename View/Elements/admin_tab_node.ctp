@@ -1,15 +1,10 @@
 <?php
 
-echo $this->Form->unlockField('Params.layout');
-echo $this->Form->unlockField('Params.theme');
-
-echo $this->Form->input('Params.theme', array(
-	'empty' => true,
-	'options' => $this->Switcher->themes(),
+echo $this->Switcher->select('switcher_theme', array(
+	'label' => __d('switcher', 'Theme'),
 	));
 
-echo $this->Form->input('Params.layout', array(
-	'empty' => true,
+echo $this->Switcher->select('switcher_layout', array(
+	'label' => __d('switcher', 'Layout'),
 	'rel' => __d('switcher', 'Selecting a layout will automatically activate its theme'),
-	'options' => $this->Switcher->layouts(),
 	));

@@ -51,15 +51,15 @@ class SwitcherComponent extends Component {
 	}
 
 	public function beforeRender(Controller $controller) {
-		if (empty($controller->viewVars['node']['Params'])) {
+		if (empty($controller->viewVars['node']['CustomFields'])) {
 			return;
 		}
-		$params = $controller->viewVars['node']['Params'];
-		if (!empty($params['theme'])) {
-			$controller->theme = $params['theme'];
+		$params = $controller->viewVars['node']['CustomFields'];
+		if (!empty($params['switcher_theme'])) {
+			$controller->theme = $params['switcher_theme'];
 		}
-		if (!empty($params['layout'])) {
-			list($theme, $layout) = explode('.', $params['layout']);
+		if (!empty($params['switcher_layout'])) {
+			list($theme, $layout) = explode('.', $params['switcher_layout']);
 			$controller->theme = $theme;
 			$controller->layout = $layout;
 		}

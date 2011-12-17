@@ -8,7 +8,7 @@ $cacheConfig = array(
 
 Cache::config('switcher_default', $cacheConfig);
 
-Croogo::hookBehavior('Node', 'Params');
+Croogo::hookBehavior('Node', 'Switcher.Switcher');
 Croogo::hookComponent('Nodes', 'Switcher.Switcher');
 Croogo::hookHelper('*', 'Switcher.Switcher');
 

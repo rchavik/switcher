@@ -20,12 +20,6 @@ At this point, this requires custom changes that has not been accepted upstream.
 Get the required changes from: git://github.com/rchavik/croogo/1.4-rchavik.
 Note that this branch could be unstable and subject to rebase/rewind.
 
-Table `nodes` needs be altered to add `params` field.
-
-``
-	alter table nodes add `params` text after created;
-``
-
 You have been warned.
 
 Still,..
