@@ -29,7 +29,11 @@ class SwitcherHelper extends AppHelper {
 	public function themes() {
 		if (isset($this->_View->viewVars['switcherLayouts'])) {
 			$keys = array_keys($this->_View->viewVars['switcherLayouts']);
-			return array_combine($keys, $keys);
+			if (!empty($keys)) {
+				return array_combine($keys, $keys);
+			} else {
+				return array();
+			}
 		} else {
 			return array();
 		}
