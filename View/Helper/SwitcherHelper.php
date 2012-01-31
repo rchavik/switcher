@@ -42,13 +42,24 @@ class SwitcherHelper extends AppHelper {
 	/** Outputs a select element formatted so that it will be processed
 	 *  by Meta behavior
 	 */
-	public function select($key, $options = array()) {
+	public function select($key, $options = array(), $fieldOptions = array()) {
+		$fieldOptions = Set::merge(array(
+			'meta' => true,
+			'model' => false,
+			'fields' => array(
+				'theme' => 'theme',
+				'layout' => 'layout',
+				),
+			), $fieldOptions);
 		switch ($key) {
 		case 'switcher_theme':
+			$field = $fieldOptions['model'] .'.'. $fieldOptions['fields']['theme'];
 			$values = $this->themes(); break;
 		case 'switcher_layout':
+			$field = $fieldOptions['model'] .'.'. $fieldOptions['fields']['layout'];
 			$values = $this->layouts(); break;
 		default:
+			$field = false;
 			$values = array();
 		}
 		$options = Set::merge(array(
@@ -66,16 +77,20 @@ class SwitcherHelper extends AppHelper {
 		}
 
 		$out  = '';
-		$uuid = String::uuid();
-		$out .= $this->Form->input("Meta.{$uuid}.id", array(
-			'type' => 'hidden',
-			'value' => $data['id'],
-			'div' => false,
-			'label' => false,
-			));
+		if ($fieldOptions['meta'] === true) {
+			$uuid = String::uuid();
+			$out .= $this->Form->input("Meta.{$uuid}.id", array(
+				'type' => 'hidden',
+				'value' => $data['id'],
+				'div' => false,
+				'label' => false,
+				));
 
-		$out .= $this->Form->input("Meta.{$uuid}.key", array('type' => 'hidden', 'value' => $key));
-		$out .= $this->Form->input("Meta.${uuid}.value", $options);
+			$out .= $this->Form->input("Meta.{$uuid}.key", array('type' => 'hidden', 'value' => $key));
+			$out .= $this->Form->input("Meta.${uuid}.value", $options);
+		} else {
+			$out .= $this->Form->input($field, $options);
+		}
 		return $out;
 	}
 

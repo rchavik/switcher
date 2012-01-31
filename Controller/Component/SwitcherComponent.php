@@ -38,6 +38,20 @@ class SwitcherComponent extends Component {
 		return $available;
 	}
 
+	public function getPaths() {
+		$settings = array();
+		$Path = ClassRegistry::init('Switcher.SwitcherPath');
+		$paths = $Path->find('all');
+		for ($i = 0, $ii = count($paths); $i < $ii; $i++) {
+			$path = $paths[$i]['SwitcherPath'];
+			$settings[$path['path']] = array(
+				'switcher_layout' => $path['layout'],
+				'switcher_theme' => $path['theme'],
+				);
+		}
+		return $settings;
+	}
+
 	public function startup(Controller $controller) {
 		$key = 'Switcher.layouts';
 		if (($layouts = Cache::read($key, 'switcher_default')) === false) {
@@ -46,15 +60,45 @@ class SwitcherComponent extends Component {
 				Cache::write($key, $layouts, 'switcher_default');
 			}
 		}
-		Configure::write('Switcher.layouts', $layouts);
+		Configure::write($key, $layouts);
 		$controller->set('switcherLayouts', $layouts);
+
+		$key = 'Switcher.paths';
+		if (($paths = Cache::read($key, 'switcher_default')) === false) {
+			$paths = $this->getPaths();
+			if (!empty($paths)) {
+				Cache::write($key, $paths, 'switcher_default');
+			}
+		}
+		Configure::write($key, $paths);
+		$controller->set('switcherPaths', $paths);
+	}
+
+	protected function _matchRoute($controller) {
+		$matched = array();
+		$here = $controller->request->here;
+		$rules = array_keys($controller->viewVars['switcherPaths']);
+		$rules = array_map(function($item) {
+			$item = addcslashes($item, '/');
+			return $item;
+		}, $rules);
+		$pathRules = '/' . implode('|', $rules) . '/';
+		if (preg_match($pathRules, $here, $matches)) {
+			$matched = $controller->viewVars['switcherPaths'][$matches[0]];
+		}
+		return $matched;
 	}
 
 	public function beforeRender(Controller $controller) {
-		if (empty($controller->viewVars['node']['CustomFields'])) {
+		$params = $this->_matchRoute($controller);
+		if (empty($params) && empty($controller->viewVars['node']['CustomFields'])) {
 			return;
 		}
-		$params = $controller->viewVars['node']['CustomFields'];
+
+		if (empty($params)) {
+			$params = $controller->viewVars['node']['CustomFields'];
+		}
+
 		if (!empty($params['switcher_theme'])) {
 			$controller->theme = $params['switcher_theme'];
 		}
