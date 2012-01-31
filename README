@@ -11,18 +11,15 @@ Configuration
 2. Create or edit a new Node/Blog/Page and choose the theme/layout in
    the Switcher tab
 
+   or
+
+3. Use the Switcher -> Paths menu to configure theme/layouts based on url path
+
 Requirements
 ------------
 
-Croogo - http://croogo.org/
+Croogo 1.4 - http://croogo.org/
 
-At this point, this requires custom changes that has not been accepted upstream.
-Get the required changes from: git://github.com/rchavik/croogo/1.4-rchavik.
-Note that this branch could be unstable and subject to rebase/rewind.
-
-You have been warned.
-
-Still,..
 Good luck and have fun.
 
 -- rchavik
