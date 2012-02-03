@@ -74,10 +74,19 @@ class SwitcherComponent extends Component {
 		$controller->set('switcherPaths', $paths);
 	}
 
-	protected function _matchRoute($controller) {
+	/**
+	 * Match $this->request->here with stored paths
+	 *
+	 * @param Controller $controller
+	 * @return mixed array containing switcher_theme and switcher_layout keys
+	 */
+	protected function _getSettingForPath($controller) {
 		$matched = array();
 		$here = $controller->request->here;
 		$rules = array_keys($controller->viewVars['switcherPaths']);
+		if (empty($rules)) {
+			return array();
+		}
 		$rules = array_map(function($item) {
 			$item = addcslashes($item, '/');
 			return $item;
@@ -93,7 +102,7 @@ class SwitcherComponent extends Component {
 		if ($controller->request->is('ajax')) {
 			return;
 		}
-		$params = $this->_matchRoute($controller);
+		$params = $this->_getSettingForPath($controller);
 		if (empty($params) && empty($controller->viewVars['node']['CustomFields'])) {
 			return;
 		}
