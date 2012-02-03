@@ -90,6 +90,9 @@ class SwitcherComponent extends Component {
 	}
 
 	public function beforeRender(Controller $controller) {
+		if ($controller->request->is('ajax')) {
+			return;
+		}
 		$params = $this->_matchRoute($controller);
 		if (empty($params) && empty($controller->viewVars['node']['CustomFields'])) {
 			return;
