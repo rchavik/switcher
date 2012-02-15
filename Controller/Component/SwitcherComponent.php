@@ -77,6 +77,8 @@ class SwitcherComponent extends Component {
 	/**
 	 * Match $this->request->here with stored paths
 	 *
+	 * FIXME: presumably this will FAIL with large amount of rules
+	 *
 	 * @param Controller $controller
 	 * @return mixed array containing switcher_theme and switcher_layout keys
 	 */
@@ -88,12 +90,19 @@ class SwitcherComponent extends Component {
 			return array();
 		}
 		$rules = array_map(function($item) {
-			$item = addcslashes($item, '/');
+			$item = '(' . str_replace('/', '\/', $item) . ')';
 			return $item;
 		}, $rules);
 		$pathRules = '/' . implode('|', $rules) . '/';
 		if (preg_match($pathRules, $here, $matches)) {
-			$matched = $controller->viewVars['switcherPaths'][$matches[0]];
+			$keys = array_keys($controller->viewVars['switcherPaths']);
+			foreach ($keys as $key => $val) {
+				$pattern = '/' . str_replace('/', '\/', $matches[0]) . '/';
+				if (preg_match($pattern, $val, $m)) {
+					$matched = $controller->viewVars['switcherPaths'][$val];
+					break;
+				}
+			}
 		}
 		return $matched;
 	}
