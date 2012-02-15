@@ -108,7 +108,7 @@ class SwitcherComponent extends Component {
 	}
 
 	public function beforeRender(Controller $controller) {
-		if ($controller->request->is('ajax')) {
+		if ($controller->request->is('ajax') || isset($controller->request->params['admin'])) {
 			return;
 		}
 		$params = $this->_getSettingForPath($controller);
