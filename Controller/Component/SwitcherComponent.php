@@ -83,9 +83,11 @@ class SwitcherComponent extends Component {
 	 * @return mixed array containing switcher_theme and switcher_layout keys
 	 */
 	protected function _getSettingForPath($controller) {
-		$matched = array();
+		$rules = $matched = array();
 		$here = $controller->request->here;
-		$rules = array_keys($controller->viewVars['switcherPaths']);
+		if (!empty($controller->viewVars['switcherPaths'])) {
+			$rules = array_keys($controller->viewVars['switcherPaths']);
+		}
 		if (empty($rules)) {
 			return array();
 		}
