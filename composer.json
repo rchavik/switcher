@@ -1,0 +1,17 @@
+{
+	"name": "rchavik/switcher",
+	"type": "cakephp-plugin",
+	"description": "Croogo Plugin - Theme/layout switcher by node",
+	"homepage": "http://github.com/rchavik/switcher",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Rachman Chavik",
+			"homepage": "http://xintesa.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"composer/installers": "*"
+	}
+}
