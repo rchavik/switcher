@@ -79,6 +79,9 @@ class SwitcherHelper extends AppHelper {
 		$out  = '';
 		if ($fieldOptions['meta'] === true) {
 			$uuid = String::uuid();
+			$this->Form->unlockField("Meta.{$uuid}.id");
+			$this->Form->unlockField("Meta.{$uuid}.key");
+			$this->Form->unlockField("Meta.{$uuid}.value");
 			$out .= $this->Form->input("Meta.{$uuid}.id", array(
 				'type' => 'hidden',
 				'value' => $data['id'],
