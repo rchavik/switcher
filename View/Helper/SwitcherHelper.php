@@ -64,6 +64,7 @@ class SwitcherHelper extends AppHelper {
 		}
 		$options = Set::merge(array(
 			'empty' => true,
+			'class' => false,
 			'options' => $values,
 			), $options);
 		if (!empty($this->data['Switcher'][$key]['value'])) {

@@ -1,5 +1,7 @@
 <?php
+
 App::uses('SwitcherAppController', 'Switcher.Controller');
+
 /**
  * SwitcherPaths Controller
  *
@@ -7,6 +9,11 @@ App::uses('SwitcherAppController', 'Switcher.Controller');
  */
 class SwitcherPathsController extends SwitcherAppController {
 
+	public $components = array(
+		'Search.Prg',
+	);
+
+	public $presetVars = true;
 
 /**
  * admin_index method
@@ -15,7 +22,10 @@ class SwitcherPathsController extends SwitcherAppController {
  */
 	public function admin_index() {
 		$this->SwitcherPath->recursive = 0;
-		$this->set('switcherPaths', $this->paginate());
+		$this->Prg->commonProcess();
+		$searchFields = array('path');
+		$switcherPaths = $this->paginate($this->SwitcherPath->parseCriteria($this->passedArgs));
+		$this->set(compact('searchFields', 'switcherPaths'));
 	}
 
 /**
@@ -38,13 +48,13 @@ class SwitcherPathsController extends SwitcherAppController {
  * @return void
  */
 	public function admin_add() {
-		if ($this->request->is('post')) {
+		if ($this->request->is('post') || $this->request->is('put')) {
 			$this->SwitcherPath->create();
 			if ($this->SwitcherPath->save($this->request->data)) {
-				$this->Session->setFlash(__('The switcher path has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('The switcher path has been saved'), 'default', array('class' => 'success'));
+				$this->Croogo->redirect(array('action' => 'edit', $this->SwitcherPath->id));
 			} else {
-				$this->Session->setFlash(__('The switcher path could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The switcher path could not be saved. Please, try again.'), 'default', array('class' => 'error'));
 			}
 		}
 	}
@@ -62,10 +72,10 @@ class SwitcherPathsController extends SwitcherAppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->SwitcherPath->save($this->request->data)) {
-				$this->Session->setFlash(__('The switcher path has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('The switcher path has been saved'), 'default', array('class' => 'success'));
+				$this->Croogo->redirect(array('action' => 'edit', $this->SwitcherPath->id));
 			} else {
-				$this->Session->setFlash(__('The switcher path could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The switcher path could not be saved. Please, try again.'), 'default', array('class' => 'error'));
 			}
 		} else {
 			$this->request->data = $this->SwitcherPath->read(null, $id);
@@ -93,4 +103,5 @@ class SwitcherPathsController extends SwitcherAppController {
 		$this->Session->setFlash(__('Switcher path was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
 }

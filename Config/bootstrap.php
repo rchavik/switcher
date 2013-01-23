@@ -22,8 +22,8 @@ CroogoNav::add('extensions.children.switcher', array(
 		'paths' => array(
 			'title' => 'Paths',
 			'url' => array(
-				'plugin' => 'switcher',
 				'admin' => true,
+				'plugin' => 'switcher',
 				'controller' => 'switcher_paths',
 				'action' => 'index',
 				),
@@ -32,8 +32,8 @@ CroogoNav::add('extensions.children.switcher', array(
 		'nodes' => array(
 			'title' => 'Nodes',
 			'url' => array(
-				'plugin' => false,
 				'admin' => true,
+				'plugin' => 'nodes',
 				'controller' => 'nodes',
 				'action' => 'index',
 				),
