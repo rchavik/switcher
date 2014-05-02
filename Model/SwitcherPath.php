@@ -23,7 +23,7 @@ class SwitcherPath extends SwitcherAppModel {
 		'path' => array('type' => 'like'),
 	);
 
-	public function afterSave($created) {
+	public function afterSave($created, $options = array()) {
 		Cache::clear(false, 'switcher_default');
 	}
 

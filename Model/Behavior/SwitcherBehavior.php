@@ -2,10 +2,10 @@
 
 class SwitcherBehavior extends ModelBehavior {
 
-	/**
-	 * Copy then remove switcher related keys from node['Meta'] array
-	 */
-	public function afterFind($model, $results = array()) {
+/**
+ * Copy then remove switcher related keys from node['Meta'] array
+ */
+	public function afterFind(Model $model, $results, $primary = false) {
 		$switcherKeys = array('switcher_theme', 'switcher_layout');
 		foreach ($results as &$result) {
 			if (!isset($result['Meta'])) { continue; }
