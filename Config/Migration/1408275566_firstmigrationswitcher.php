@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Walther
- * Date: 2014-08-17
- * Time: 01:39 PM
- */
-
 class Firstmigrationswitcher extends CakeMigration {
-	/**
-	 * Actions to be performed
-	 *
-	 * @var array $migration
-	 * @access public
-	 */
+/**
+ * Actions to be performed
+ *
+ * @var array $migration
+ * @access public
+ */
 	public $migration = array(
 		'up' => array(
 			'create_table' => array(

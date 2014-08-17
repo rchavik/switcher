@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Walther
- * Date: 2014-08-17
- * Time: 01:41 PM
- */
-
 class SwitcherActivation {
 
 /**
