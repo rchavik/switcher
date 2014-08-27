@@ -29,20 +29,6 @@ class SwitcherPathsController extends SwitcherAppController {
 	}
 
 /**
- * admin_view method
- *
- * @param string $id
- * @return void
- */
-	public function admin_view($id = null) {
-		$this->SwitcherPath->id = $id;
-		if (!$this->SwitcherPath->exists()) {
-			throw new NotFoundException(__('Invalid switcher path'));
-		}
-		$this->set('switcherPath', $this->SwitcherPath->read(null, $id));
-	}
-
-/**
  * admin_add method
  *
  * @return void
