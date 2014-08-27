@@ -1,12 +1,8 @@
 <?php
-
-$cacheConfig = array(
-	'duration' => '+10 minutes',
-	'path' => CACHE . 'queries',
-	'engine' => 'File',
-	);
-
-Cache::config('switcher_default', $cacheConfig);
+CroogoCache::config('switcher_default', array_merge(
+	Configure::read('Cache.defaultConfig'),
+	array('duration' => '+10 minutes')
+));
 
 Croogo::hookBehavior('Node', 'Switcher.Switcher');
 Croogo::hookComponent('*', 'Switcher.Switcher');
@@ -26,9 +22,9 @@ CroogoNav::add('extensions.children.switcher', array(
 				'plugin' => 'switcher',
 				'controller' => 'switcher_paths',
 				'action' => 'index',
-				),
-			'weight' => 10,
 			),
+			'weight' => 10,
+		),
 		'nodes' => array(
 			'title' => 'Nodes',
 			'url' => array(
@@ -36,8 +32,8 @@ CroogoNav::add('extensions.children.switcher', array(
 				'plugin' => 'nodes',
 				'controller' => 'nodes',
 				'action' => 'index',
-				),
-			'weight' => 20,
 			),
+			'weight' => 20,
 		),
-    ));
+	),
+));
