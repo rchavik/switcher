@@ -12,9 +12,6 @@ $this->Html
 		array('plugin' => 'switcher', 'controller' => 'switcher_paths', 'action' => 'index')
 	);
 ?>
-<?php $this->start('actions'); ?>
-	<li><?php echo $this->Html->link(__('New Path Switcher'), array('action' => 'add'), array('button' => 'default')); ?></li>
-<?php $this->end(); ?>
 
 <table class="table table-striped">
 	<tr>
@@ -33,10 +30,6 @@ $this->Html
 		<td><?php echo h($switcherPath['SwitcherPath']['theme']); ?>&nbsp;</td>
 		<td class="item-actions">
 		<?php
-			echo $this->Croogo->adminRowAction('',
-				array('action' => 'view', $switcherPath['SwitcherPath']['id']),
-				array('tooltip' => __('View'), 'icon' => 'eye-open')
-			);
 			echo $this->Croogo->adminRowAction('',
 				array('action' => 'edit', $switcherPath['SwitcherPath']['id']),
 				array('tooltip' => __('Edit'), 'icon' => 'pencil'));
