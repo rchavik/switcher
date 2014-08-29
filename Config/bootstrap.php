@@ -1,7 +1,7 @@
 <?php
 CroogoCache::config('switcher_default', array_merge(
 	Configure::read('Cache.defaultConfig'),
-	['duration' => '+10 minutes']
+	array('duration' => '+10 minutes')
 ));
 
 Croogo::hookBehavior('Node', 'Switcher.Switcher');
@@ -11,29 +11,29 @@ Croogo::hookHelper('*', 'Switcher.Switcher');
 Croogo::hookAdminTab('Nodes/admin_edit', 'Switcher', 'switcher.admin_tab_node');
 Croogo::hookAdminTab('Nodes/admin_add', 'Switcher', 'switcher.admin_tab_node');
 
-CroogoNav::add('extensions.children.switcher', [
+CroogoNav::add('extensions.children.switcher', array(
     'title' => 'Switcher',
 	'url' => '#',
-	'children' => [
-		'paths' => [
+	'children' => array(
+		'paths' => array(
 			'title' => 'Paths',
-			'url' => [
+			'url' => array(
 				'admin' => true,
 				'plugin' => 'switcher',
 				'controller' => 'switcher_paths',
 				'action' => 'index',
-				],
+				),
 			'weight' => 10,
-			],
-		'nodes' => [
+			),
+		'nodes' => array(
 			'title' => 'Nodes',
-			'url' => [
+			'url' => array(
 				'admin' => true,
 				'plugin' => 'nodes',
 				'controller' => 'nodes',
 				'action' => 'index',
-				],
+				),
 			'weight' => 20,
-			],
-		],
-    ]);
+			),
+		),
+));
