@@ -21,6 +21,12 @@ $this->Html
 	->addCrumb($crumb, $this->here);
 
 ?>
+<?php $this->start('actions'); ?>
+	<li><?php echo $this->Html->link(__('List Path Switchers'), array('action' => 'index'), array('button' => 'default'));?></li>
+	<?php if ($action == 'admin_edit'): ?>
+	<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('SwitcherPath.id')), array('button' => 'danger'), __('Are you sure you want to delete # %s?', $this->Form->value('SwitcherPath.id'))); ?></li>
+	<?php endif; ?>
+<?php $this->end(); ?>
 
 <?php echo $this->Form->create('SwitcherPath');?>
 
@@ -34,6 +40,10 @@ $this->Html
 			<div id="switcher-main" class="tab-pane">
 			<?php
 				echo $this->Form->input('id');
+				$this->Form->inputDefaults(array(
+					'label' => false,
+					'class' => 'span10',
+				));
 				echo $this->Form->input('path', array(
 					'placeholder' => __('Path'),
 				));
