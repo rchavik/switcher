@@ -11,61 +11,52 @@ if ($action == 'admin_edit') {
 
 $crumb = $action == 'admin_add' ? __('Add') : $this->data['SwitcherPath']['path'];
 $this->Html
+	->addCrumb('', '/admin', array('icon' => $_icons['home']))
 	->addCrumb(__('Extensions'),
-		array('plugin' => 'extensions', 'controller' => 'extensions_plugins'),
-		array('icon' => 'home')
+		array('plugin' => 'extensions', 'controller' => 'extensions_plugins')
 	)
 	->addCrumb(__('Switcher'),
 		array('plugin' => 'switcher', 'controller' => 'switcher_paths', 'action' => 'index')
 	)
 	->addCrumb($crumb, $this->here);
 
-?>
-<?php $this->start('actions'); ?>
-	<li><?php echo $this->Html->link(__('List Path Switchers'), array('action' => 'index'), array('button' => 'default'));?></li>
-	<?php if ($action == 'admin_edit'): ?>
-	<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('SwitcherPath.id')), array('button' => 'danger'), __('Are you sure you want to delete # %s?', $this->Form->value('SwitcherPath.id'))); ?></li>
-	<?php endif; ?>
-<?php $this->end(); ?>
+$this->start('actions');
+	echo $this->Html->link(__('List Path Switchers'), array('action' => 'index'), array('button' => 'default'));
+	if ($action == 'admin_edit'):
+		echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('SwitcherPath.id')), array('button' => 'danger'), __('Are you sure you want to delete # %s?', $this->Form->value('SwitcherPath.id')));
+	endif;
+$this->end();
 
-<?php echo $this->Form->create('SwitcherPath');?>
+$this->append('form-start', $this->Form->create('SwitcherPath'));
 
-<div class="row-fluid">
+$this->append('tab-heading');
+	echo $this->Croogo->adminTab('Switcher', '#switcher-main');
+	echo $this->Croogo->adminTabs();
+$this->end();
 
-	<div class="span8">
-		<ul class="nav nav-tabs">
-			<li><a href="#switcher-main" data-toggle="tab"><?php echo __('Switcher'); ?></a></li>
-		</ul>
-		<div class="tab-content">
-			<div id="switcher-main" class="tab-pane">
-			<?php
-				echo $this->Form->input('id');
-				$this->Form->inputDefaults(array(
-					'label' => false,
-					'class' => 'span10',
-				));
-				echo $this->Form->input('path', array(
-					'placeholder' => __('Path'),
-				));
-				$options = array('meta' => false, 'model' => 'SwitcherPath');
-				echo $this->element('admin_tab_node', array('fieldOptions' => $options));
-			?>
-			</div>
-		</div>
-	</div>
-	<div class="span4">
-	<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Apply'), array('name' => 'apply')) .
-			$this->Form->button(__('Save'), array('class' => 'btn btn-primary')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('class' => 'cancel btn btn-danger')) .
+$this->append('tab-content');
+	echo $this->Html->tabStart('switcher-main');
+		echo $this->Form->input('id');
+		$this->Form->inputDefaults(array(
+			'label' => false,
+			'class' => 'span10',
+		));
+		echo $this->Form->input('path', array(
+			'placeholder' => __('Path'),
+		));
+		$options = array('meta' => false, 'model' => 'SwitcherPath');
+		echo $this->element('admin_tab_node', array('fieldOptions' => $options));
+	echo $this->Html->tabEnd();
 
-			$this->Html->endBox();
-		
-		//echo $this->Form->button(__('Apply'), array('button' => 'danger'));
-		//echo $this->Form->button(__('Submit'));
-	?>
-	</div>
-</div>
+	echo $this->Croogo->adminTabs();
+$this->end();
 
-<?php echo $this->Form->end(); ?>
+$this->start('panels');
+	echo $this->Html->beginBox(__('Publishing')) .
+		$this->Form->button(__('Apply'), array('name' => 'apply')) .
+		$this->Form->button(__('Save'), array('class' => 'btn btn-primary')) .
+		$this->Html->link(__('Cancel'), array('action' => 'index'), array('class' => 'cancel btn btn-danger')) .
+
+		$this->Html->endBox();
+$this->end();
+$this->append('form-end', $this->Form->end());
