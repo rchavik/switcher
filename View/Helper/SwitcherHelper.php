@@ -4,7 +4,7 @@ class SwitcherHelper extends AppHelper {
 
 	public $helpers = array(
 		'Form',
-		);
+	);
 
 	/** Gets a list of available layouts */
 	public function layouts() {
@@ -88,7 +88,7 @@ class SwitcherHelper extends AppHelper {
 				'value' => $data['id'],
 				'div' => false,
 				'label' => false,
-				));
+			));
 
 			$out .= $this->Form->input("Meta.{$uuid}.key", array('type' => 'hidden', 'value' => $key));
 			$out .= $this->Form->input("Meta.${uuid}.value", $options);
