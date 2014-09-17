@@ -4,7 +4,7 @@ class SwitcherComponent extends Component {
 
 	public $components = array(
 		'Croogo',
-		);
+	);
 
 	protected function _getLayouts($path) {
 		$path = $path . 'Layouts';
@@ -21,7 +21,7 @@ class SwitcherComponent extends Component {
 		foreach ($files as $file => $junk) {
 			$files[$file]  = array(
 				'path' => $path . DS . $file . '.ctp'
-				);
+			);
 		}
 		return $files;
 	}
@@ -47,7 +47,7 @@ class SwitcherComponent extends Component {
 			$settings[$path['path']] = array(
 				'switcher_layout' => $path['layout'],
 				'switcher_theme' => $path['theme'],
-				);
+			);
 		}
 		return $settings;
 	}
@@ -131,4 +131,5 @@ class SwitcherComponent extends Component {
 			$controller->layout = $layout;
 		}
 	}
+
 }

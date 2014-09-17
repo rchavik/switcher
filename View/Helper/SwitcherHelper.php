@@ -6,7 +6,9 @@ class SwitcherHelper extends AppHelper {
 		'Form',
 	);
 
-	/** Gets a list of available layouts */
+/**
+ * Gets a list of available layouts
+ */
 	public function layouts() {
 		if (isset($this->_View->viewVars['switcherLayouts'])) {
 			$themedLayouts = $this->_View->viewVars['switcherLayouts'];
@@ -25,7 +27,9 @@ class SwitcherHelper extends AppHelper {
 		return $options;
 	}
 
-	/** Get a list of available themes */
+/**
+ * Get a list of available themes
+ */
 	public function themes() {
 		if (isset($this->_View->viewVars['switcherLayouts'])) {
 			$keys = array_keys($this->_View->viewVars['switcherLayouts']);
@@ -39,9 +43,10 @@ class SwitcherHelper extends AppHelper {
 		}
 	}
 
-	/** Outputs a select element formatted so that it will be processed
-	 *  by Meta behavior
-	 */
+/**
+ * Outputs a select element formatted so that it will be processed
+ * by Meta behavior
+ */
 	public function select($key, $options = array(), $fieldOptions = array()) {
 		$fieldOptions = Set::merge(array(
 			'meta' => true,
@@ -52,21 +57,25 @@ class SwitcherHelper extends AppHelper {
 				),
 			), $fieldOptions);
 		switch ($key) {
-		case 'switcher_theme':
-			$field = $fieldOptions['model'] .'.'. $fieldOptions['fields']['theme'];
-			$values = $this->themes(); break;
-		case 'switcher_layout':
-			$field = $fieldOptions['model'] .'.'. $fieldOptions['fields']['layout'];
-			$values = $this->layouts(); break;
-		default:
-			$field = false;
-			$values = array();
+			case 'switcher_theme':
+				$field = $fieldOptions['model'] . '.' . $fieldOptions['fields']['theme'];
+				$values = $this->themes();
+			break;
+			case 'switcher_layout':
+				$field = $fieldOptions['model'] . '.' . $fieldOptions['fields']['layout'];
+				$values = $this->layouts();
+			break;
+			default:
+				$field = false;
+				$values = array();
+			break;
 		}
+
 		$options = Set::merge(array(
 			'empty' => true,
 			'class' => false,
 			'options' => $values,
-			), $options);
+		), $options);
 		if (!empty($this->data['Switcher'][$key]['value'])) {
 			$options['selected'] = $this->data['Switcher'][$key]['value'];
 		}
